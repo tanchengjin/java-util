@@ -2,6 +2,10 @@ package com.tanchengjin.utils;
 
 import java.io.Serializable;
 
+/**
+ * @author TanChengjin
+ * @param <T>
+ */
 public class ServerResponse<T> implements Serializable {
     private int errno;
     private String message;
