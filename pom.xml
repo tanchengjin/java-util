@@ -6,11 +6,123 @@
 
     <groupId>com.tanchengjin</groupId>
     <artifactId>java-util</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.3</version>
+    <!--    <version>0.0.1-release</version>-->
+    <!--    <version>0.0.1-SNAPSHOT</version>-->
 
+    <name>java-util</name>
+    <description>util sdk for java</description>
+    <url>https://www.tanchengjin.com</url>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <!--开发者信息-->
+    <developers>
+        <developer>
+            <name>TanChengjin</name>
+            <email>18865477815@163.com</email>
+            <url>https://github.com/tanchengjin</url>
+        </developer>
+    </developers>
+
+    <scm>
+        <url>https://github.com/tanchengjin/java-util</url>
+        <connection>git@github.com:tanchengjin/java-util.git</connection>
+        <developerConnection>https://github.com/tanchengjin</developerConnection>
+    </scm>
+
+
+    <!--    <snapshotRepository> 指定的是 snapshot 仓库地址；<repository> 指定的是 staging （正式版）仓库地址。需要留意的是，这里的 id 需要和 settings.xml 中的 <server> 的 id 保持一致。-->
+    <distributionManagement>
+        <!--  申明打包到Maven公有仓库  -->
+        <snapshotRepository>
+            <id>sonatype-snapshots</id>
+            <!--            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>-->
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>sonatype-staging</id>
+            <!--            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>-->
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+
+    <profiles>
+        <profile>
+            <id>sonatype</id>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>1.6.7</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>sonatype-snapshots</serverId>
+                            <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                            <!--<nexusUrl>https://oss.sonatype.org/</nexusUrl>-->
+                            <!--自动发布,是否需要手动release-->
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.0.1</version>
+                        <configuration>
+                            <failOnError>false</failOnError>
+                            <quiet>true</quiet>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.6</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!--resource-->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>2.2.1</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
